@@ -83,7 +83,7 @@ public class Tintuc {
                 ", tieude='" + tieude + '\'' +
                 ", noidungtt='" + noidungtt + '\'' +
                 ", lienket='" + lienket + '\'' +
-                ", madm=" + madm +
+                ", madm=" + madm.getMadm() +
                 '}';
     }
 }

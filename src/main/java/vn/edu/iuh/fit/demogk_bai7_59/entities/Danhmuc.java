@@ -24,6 +24,10 @@ public class Danhmuc {
     public Danhmuc() {
     }
 
+    public Danhmuc(String madm) {
+        this.madm = madm;
+    }
+
     public Danhmuc(String madm, String tendanhmuc, String nguoiquanly, String ghichu) {
         this.madm = madm;
         this.tendanhmuc = tendanhmuc;
