@@ -10,9 +10,9 @@
     <div><h1>NEWS</h1></div>
 
     <div id="option">
-        <a href="hello-servlet">Danh sách tin tức</a> |
-        <a href="hello-servlet">Thêm tin tức mới</a> |
-        <a href="hello-servlet">Chức năng quản lý</a>
+        <a href="action?action=danhSachTinTuc">Danh sách tin tức</a> |
+        <a href="addTinTuc.jsp">Thêm tin tức mới</a> |
+        <a href="action?action=chucNangQuanLy">Chức năng quản lý</a>
     </div>
 
     <div id="content">

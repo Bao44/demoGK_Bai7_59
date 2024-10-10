@@ -25,14 +25,22 @@
 .addBtn {
     background-color: #4CAF50;
     color: white;
-    padding: 10px 20px;
+    padding: 12px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
+    margin-left: 50px;
 }
 
 .container-dashboard {
     margin: 20px;
+}
+
+.form {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #ccc;
 }
 
 a {
@@ -48,6 +56,7 @@ input {
     border-radius: 20px;
     border: 1px solid gray;
     padding-left: 20px;
+    margin-left: 20px;
 }
 
 table {
