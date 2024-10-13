@@ -44,6 +44,8 @@
             </td>
             <td><%=tintuc.getMadm().getMadm()%>
             </td>
+            <td><a href="action?action=deleteTinTuc&MATT=<%=tintuc.getMatt()%>">Delete</a>
+            </td>
         </tr>
         <%}%>
         </tbody>

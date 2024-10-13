@@ -29,23 +29,25 @@ public class DanhSachTinTucServlet extends HttpServlet {
         switch (action) {
             case "addTinTuc":
                 boolean result = false;
-                Tintuc tintuc = new Tintuc();
-                tintuc.setMatt(req.getParameter("MATT"));
-                tintuc.setTieude(req.getParameter("TIEUDE"));
-                tintuc.setNoidungtt(req.getParameter("NOIDUNGTT"));
-                tintuc.setLienket(req.getParameter("LIENKET"));
-                tintuc.setMadm(new Danhmuc(req.getParameter("MADM")));
-                try {
-                    result = tinTucDAO.addTinTuc(tintuc);
-                    if (result) {
-                        PrintWriter out = resp.getWriter();
-                        out.println("<script type=\"text/javascript\"> alert('Successfull!'); location='index.jsp'  </script>");
-                    } else {
-                        PrintWriter out = resp.getWriter();
-                        out.println("<script type=\"text/javascript\"> alert('Error'); location='addTinTuc.jsp' </script>");
+                if (checkAddTinTuc(req, resp)) {
+                    Tintuc tintuc = new Tintuc();
+                    tintuc.setMatt(req.getParameter("MATT"));
+                    tintuc.setTieude(req.getParameter("TIEUDE"));
+                    tintuc.setNoidungtt(req.getParameter("NOIDUNGTT"));
+                    tintuc.setLienket(req.getParameter("LIENKET"));
+                    tintuc.setMadm(new Danhmuc(req.getParameter("MADM")));
+                    try {
+                        result = tinTucDAO.addTinTuc(tintuc);
+                        if (result) {
+                            PrintWriter out = resp.getWriter();
+                            out.println("<script type=\"text/javascript\"> alert('Successfull!'); location='index.jsp'  </script>");
+                        } else {
+                            PrintWriter out = resp.getWriter();
+                            out.println("<script type=\"text/javascript\"> alert('Error'); location='addTinTuc.jsp' </script>");
+                        }
+                    } catch (SQLException | ClassNotFoundException e) {
+                        e.printStackTrace();
                     }
-                } catch (SQLException | ClassNotFoundException e) {
-                    e.printStackTrace();
                 }
                 break;
         }
@@ -74,6 +76,50 @@ public class DanhSachTinTucServlet extends HttpServlet {
                     throw new ServletException("Error: ", e);
                 }
                 break;
+            case "deleteTinTuc":
+                String matt = req.getParameter("MATT");
+                try {
+                    boolean result = tinTucDAO.deleteTinTuc(matt);
+                    if (result) {
+                        PrintWriter out = resp.getWriter();
+                        out.println("<script type=\"text/javascript\"> alert('Xoa thanh cong!'); </script>");
+                    } else {
+                        PrintWriter out = resp.getWriter();
+                        out.println("<script type=\"text/javascript\"> alert('Xoa khong thanh cong!'); </script>");
+                    }
+                } catch (SQLException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                resp.sendRedirect("action?action=danhSachTinTuc");
+                break;
         }
+    }
+
+    private boolean checkAddTinTuc(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Tintuc tintuc = new Tintuc();
+        String matt = req.getParameter("MATT");
+        String tieude = req.getParameter("TIEUDE");
+        String noidungtt = req.getParameter("NOIDUNGTT");
+        String lienket = req.getParameter("LIENKET");
+        String madm = req.getParameter("MADM");
+
+        if (matt == null || matt.equals("")) {
+            PrintWriter out = resp.getWriter();
+            out.println("<script type=\"text/javascript\"> alert('Ma tin tuc khong duoc de trong'); location='addTinTuc.jsp' </script>");
+            return false;
+        } else if (tieude == null || tieude.equals("")) {
+            PrintWriter out = resp.getWriter();
+            out.println("<script type=\"text/javascript\"> alert('Tieu de khong duoc tronh'); location='addTinTuc.jsp' </script>");
+            return false;
+        } else if (noidungtt == null || noidungtt.equals("")) {
+            PrintWriter out = resp.getWriter();
+            out.println("<script type=\"text/javascript\"> alert('Noi dung khong duoc trong'); location='addTinTuc.jsp' </script>");
+            return false;
+        } else if (madm == null || madm.equals("")) {
+            PrintWriter out = resp.getWriter();
+            out.println("<script type=\"text/javascript\"> alert('Ma danh muc khong duoc trong'); location='addTinTuc.jsp' </script>");
+            return false;
+        }
+        return true;
     }
 }
