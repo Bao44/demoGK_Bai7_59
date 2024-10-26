@@ -79,6 +79,7 @@ public class DanhSachTinTucServlet extends HttpServlet {
             case "deleteTinTuc":
                 String matt = req.getParameter("MATT");
                 try {
+                    System.out.println(tinTucDAO.findById(matt));
                     boolean result = tinTucDAO.deleteTinTuc(matt);
                     if (result) {
                         PrintWriter out = resp.getWriter();
